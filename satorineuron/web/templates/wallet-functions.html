@@ -101,6 +101,12 @@
                         {% else %}{{ sendSatoriTransaction.sweep(size=32, class_="tight", style="height: 36px;width: 36px;opacity: .4;margin-left: 6px;", onClick="sweepEverything();") }}
                         {% endif %}
                       </div>
+                      <div class="input-group input-group-outline">
+                        {% if darkmode %}{{ sendSatoriTransaction.sweep(size=32, class_="tight dark-colors", style="height: 36px;width: 36px;opacity: .4;margin-left: 6px;", onClick="sweepAllButFive();") }}
+                        {% else %}{{ sendSatoriTransaction.sweep(size=32, class_="tight", style="height: 36px;width: 36px;opacity: .4;margin-left: 6px;", onClick="sweepAllButFive();") }}
+                        {% endif %}
+                        Sweep All But 5 SATORI
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -133,10 +139,17 @@
 	}
   function sweepEverything() {
     if (document.getElementById('sweep').checked) {
-      //document.getElementById('amount').style.display = 'none';
       document.getElementById('amount').readOnly = true;
     } else {
-      //document.getElementById('amount').style.display = '';
+      document.getElementById('amount').readOnly = false;
+    }
+	}
+  function sweepAllButFive() {
+    if (document.getElementById('sweep').checked) {
+      const balance = Number(document.getElementById("walletDivisibility").innerHTML);
+      document.getElementById('amount').value = balance - 5;
+      document.getElementById('amount').readOnly = true;
+    } else {
       document.getElementById('amount').readOnly = false;
     }
 	}
